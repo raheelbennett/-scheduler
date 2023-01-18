@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { getAppointmentsForDay } from "helpers/selectors";
 import axios from "axios";
 export default function useApplicationData() {
   const [state, setState] = useState({
@@ -23,6 +24,18 @@ export default function useApplicationData() {
     });
   }, []);
 
+  const updateSpots = (appointments) => {
+    const appointmentsForDay = getAppointmentsForDay({ ...state, appointments }, state.day);
+    const nullAppts = appointmentsForDay.filter((appointment) => !appointment.interview);
+    const spots = nullAppts.length;
+    let dayIndex;
+    state.days.forEach((day, index) => day.name === state.day && (dayIndex = index));
+    const newDay = { ...state.days[dayIndex], spots };
+    const newDays = [...state.days];
+    newDays[dayIndex] = newDay;
+    setState((prev) => ({ ...prev, days: newDays, appointments }));
+  };
+
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -32,12 +45,11 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    return axios
-      .put(`/api/appointments/${id}`, { interview })
-      .then((response) => {
-        console.log("response", response);
-        setState((prev) => ({ ...prev, appointments }));
-      });
+    return axios.put(`/api/appointments/${id}`, { interview }).then((response) => {
+      console.log("response", response);
+      /*instead of passing the appointment in setState here we can pass the appointments to the updateSpots functoin which not only uses it as updated data to canculate spots we can also pass it in setState at the same time */
+      updateSpots(appointments);
+    });
   };
 
   const cancelInterview = (id) => {
@@ -51,7 +63,8 @@ export default function useApplicationData() {
     };
     return axios.delete(`api/appointments/${id}`).then((response) => {
       console.log("response", response);
-      setState((prev) => ({ ...prev, appointments }));
+      /*instead of passing the appointment in setState here we can pass the appointments to the updateSpots functoin which not only uses it as updated data to canculate spots we can also pass it in setState at the same time */
+      updateSpots(appointments);
     });
   };
 

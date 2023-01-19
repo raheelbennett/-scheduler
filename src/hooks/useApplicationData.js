@@ -46,7 +46,6 @@ export default function useApplicationData() {
       [id]: appointment,
     };
     return axios.put(`/api/appointments/${id}`, { interview }).then((response) => {
-      console.log("response", response);
       /*instead of passing the appointment in setState here we can pass the appointments to the updateSpots functoin which not only uses it as updated data to canculate spots we can also pass it in setState at the same time */
       updateSpots(appointments);
     });
@@ -62,7 +61,6 @@ export default function useApplicationData() {
       [id]: appointment,
     };
     return axios.delete(`api/appointments/${id}`).then((response) => {
-      console.log("response", response);
       /*instead of passing the appointment in setState here we can pass the appointments to the updateSpots functoin which not only uses it as updated data to canculate spots we can also pass it in setState at the same time */
       updateSpots(appointments);
     });

@@ -13,6 +13,13 @@ Interview scheduler is a project built for learning purposes using React and sev
 -Any descructive requests present the user wiht a confirmation window before proceeding. eg: deleting an appointment.
 The landing page shows the number of remaining spots for each day without user having to load each day individually. Spots availability updates in real-time as use books/deletes appointments.
 
+!["Home Page"](https://github.com/raheelbennett/scheduler/blob/master/docs/landing.PNG?raw=true)
+!["Book Aoointment"](https://github.com/raheelbennett/scheduler/blob/master/docs/book.PNG?raw=true)
+!["Book Aoointment Filled"](https://github.com/raheelbennett/scheduler/blob/master/docs/book-options.PNG?raw=true)
+!["Show"](https://github.com/raheelbennett/scheduler/blob/master/docs/booked.PNG?raw=true)
+!["Confirmation"](https://github.com/raheelbennett/scheduler/blob/master/docs/confirmation.PNG?raw=true)
+!["Progress"](https://github.com/raheelbennett/scheduler/blob/master/docs/progress.PNG?raw=true)
+
 ## Setup
 
 Install dependencies with `npm install`.
